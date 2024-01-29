@@ -4,6 +4,12 @@ on: workflow_dispatch
 
 jobs:
   generate:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,4 +20,13 @@ jobs:
       - name: Template
         run: |
           export PICK="$(shuf -n1 -e foo bar baz)"
-          tera --env-only --template ./template.html
+          tera --env-only --template ./template.html -o ./index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./index.html
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
