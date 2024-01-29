@@ -20,13 +20,14 @@ jobs:
       - name: Template
         run: |
           export PICK="$(shuf -n1 -e foo bar baz)"
-          tera --env-only --template ./template.html -o ./index.html
+          mkdir site
+          tera --env-only --template ./template.html -o ./site/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./index.html
+          path: ./site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
