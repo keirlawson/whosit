@@ -10,7 +10,7 @@ jobs:
         run: |
           wget https://github.com/chevdor/tera-cli/releases/download/v0.2.4/tera-cli_linux_amd64.deb
           sudo dpkg -i ./tera-cli_linux_amd64.deb
-      -name: Template
+      - name: Template
         run: |
           export PICK="$(shuf -n1 -e foo bar baz)"
           tera --env-only --template ./template.html
