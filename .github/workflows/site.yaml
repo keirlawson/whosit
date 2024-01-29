@@ -6,6 +6,7 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install tera-cli
         run: |
           wget https://github.com/chevdor/tera-cli/releases/download/v0.2.4/tera-cli_linux_amd64.deb
