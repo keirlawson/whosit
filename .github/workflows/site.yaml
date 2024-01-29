@@ -1,0 +1,16 @@
+on:
+  schedule:
+    - cron: '30 1 * * 1,2,3,4,5'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install tera-cli
+        run: |
+          wget https://github.com/chevdor/tera-cli/releases/download/v0.2.4/tera-cli_linux_amd64.deb
+          sudo dpkg -i ./tera-cli_linux_amd64.deb
+      -name: Template
+        run: |
+          export PICK="$(shuf -n1 -e foo bar baz)"
+          tera --env-only --template ./template.html
